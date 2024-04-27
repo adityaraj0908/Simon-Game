@@ -7,6 +7,8 @@ $(".btn").click(function()
     var userChosenColor = $(this).attr("id");
     userClickedPattern.push(userChosenColor);
     console.log(userClickedPattern);
+    playSound(userChosenColor);
+    animatePress(userChosenColor);
 });
 
 function nextSequence()
@@ -18,9 +20,25 @@ function nextSequence()
     gamePattern.push(randomChosenColour);
 
     $("#"+randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
+    playSound(randomChosenColour);
 
-    var audio = new Audio("sounds/"+randomChosenColour+".mp3");
-    audio.play();
+    // var audio = new Audio("sounds/"+randomChosenColour+".mp3");
+    // audio.play();
+
 }
 // nextSequence();
 
+function playSound(name)
+{
+    var audio = new Audio("sounds/"+name+".mp3");
+    audio.play();
+}
+
+function animatePress(currentColour)
+{
+    $("#"+currentColour).addClass("pressed");
+    setTimeout(function()
+    {
+        $("#"+currentColour).removeClass("pressed");
+    }, 100);
+}
